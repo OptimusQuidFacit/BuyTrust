@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Button } from "@/components/ui/button"
+import moment from "moment"
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -25,7 +26,7 @@ export type Order = {
         status:string,
         paymentStatus:string,
         isConfirmed:boolean,
-        timeStamp:number
+        timeStamp:Date
     }
 
 export const orderColumns: ColumnDef<Order>[] = [
@@ -61,8 +62,10 @@ export const orderColumns: ColumnDef<Order>[] = [
     header: "Order Id"
   },
   {
-    accessorKey: "product.name",
+    accessorKey: "productName",
     header: "Product Name",
+    accessorFn: (row) => row.product?.name, // 👈 use accessorFn for nested value
+
     cell:({row})=>{
       let name = row.original.product.name
       return<p className="font-semibold">{name}</p>
@@ -74,10 +77,11 @@ export const orderColumns: ColumnDef<Order>[] = [
     header:"Qty"
   },
   {
-    accessorKey: "totalAmmount",
+    accessorKey: "totalAmount",
     header: ({column})=>{
       return (
         <Button
+        className="text-xs"
           variant="ghost"
           onClick={() => column.toggleSorting()}
         >
@@ -95,15 +99,45 @@ export const orderColumns: ColumnDef<Order>[] = [
   {
     accessorKey:"status",
     header:"Order Status",
+    filterFn: (row, columnId, filterValue: string[]) => {
+        if (!Array.isArray(filterValue)) return true
+        const value = row.getValue<string>(columnId)
+        return filterValue.includes(value)
+      },
   },
   {
     accessorKey: "paymentStatus",
     header: "Payment Status",
+    filterFn: (row, columnId, filterValue: string[]) => {
+        if (!Array.isArray(filterValue)) return true
+        const value = row.getValue<string>(columnId)
+        return filterValue.includes(value)
+      },
+  },
+  {
+    accessorKey:"timeStamp",
+    header:"Order Date",
+    filterFn: (row, columnId, filterValue) => {
+        // You can write your own condition here
+        const rowDate = new Date(row.getValue(columnId));
+        console.log(rowDate)
+        const [start, end] = filterValue; // example: [firstDate, secondDate]
+    
+        // If filterValue is undefined, show all
+        if (!start || !end) return true;
+    
+        // Custom condition (e.g., using moment)
+        return moment(rowDate).isBetween(start, end, "day", "[]");
+      },
+    cell:({row})=>{
+        const date = row.original.timeStamp;
+        return date?.toLocaleDateString("en-CA");
+    }
   },
   {
     id:"actions",
     cell:({row})=>{
-      const product = row.original
+      const order = row.original
       return(
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -120,9 +154,9 @@ export const orderColumns: ColumnDef<Order>[] = [
               Copy payment ID
             </DropdownMenuItem> */}
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="text-xs"><Eye className="text-secondary"/> View Product </DropdownMenuItem>
-            <DropdownMenuItem className="text-xs"><Edit className="text-secondary"/> Edit Product </DropdownMenuItem>
-            <DropdownMenuItem className="text-xs"><Delete className="text-secondary"/>Delete Product </DropdownMenuItem>
+            <DropdownMenuItem className="text-xs"><Eye className="text-secondary"/> View Order </DropdownMenuItem>
+            {/* <DropdownMenuItem className="text-xs"><Edit className="text-secondary"/> Edit Product </DropdownMenuItem> */}
+            <DropdownMenuItem className="text-xs"><Delete className="text-secondary"/>Delete Order </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )

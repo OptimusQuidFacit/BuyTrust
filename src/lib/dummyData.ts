@@ -124,7 +124,7 @@ export const Orders=[
         status:"pending",
         paymentStatus:"escrowed",
         isConfirmed:false,
-        timeStamp:date.setFullYear(2025,10,22)
+        timeStamp:new Date(2025,10,22)
     },
     {
         id:"#3637589",
@@ -136,7 +136,7 @@ export const Orders=[
         status:"pending",
         paymentStatus:"escrowed",
         isConfirmed:false,
-        timeStamp:date.setFullYear(2025,8,24)
+        timeStamp:new Date(2025,8,24)
     },
     {
         id:"#7236463",
@@ -148,7 +148,7 @@ export const Orders=[
         status:"shipped",
         paymentStatus:"escrowed",
         isConfirmed:false,
-        timeStamp:date.setFullYear(2025,7,21)
+        timeStamp: new Date(2025,7,21)
     },
 
 ]

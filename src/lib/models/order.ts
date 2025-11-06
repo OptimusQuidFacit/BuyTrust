@@ -15,7 +15,7 @@ const OrderSchema = new Schema(
       },
       paymentStatus: {
         type: String,
-        enum: ['escrowed', 'released', 'refunded'],
+        enum: ['pending', 'escrowed', 'released', 'refunded'],
         default: 'escrowed',
       },
       isConfirmed: { type: Boolean, default: false }, // Buyer confirmation

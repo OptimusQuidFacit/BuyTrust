@@ -3,6 +3,8 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { DateRange } from "react-day-picker";
 
 type props={
+    firstDate:Date|undefined,
+    secondDate:Date|undefined,
     setFirstDate: Dispatch<SetStateAction<Date | undefined>>
     setSecondDate: Dispatch<SetStateAction<Date | undefined>>
 }
@@ -39,26 +41,29 @@ export const DateRangePicker=() => {
     />
   )}
 
-  export const TwoDatePickers = ({setFirstDate, setSecondDate}:props) => {
+  export const TwoDatePickers = ({firstDate, secondDate,setFirstDate, setSecondDate}:props) => {
     
   
     return (
-      <div className="fixed bottom-6 right-6 md:flex gap-6">
+      <div className="fixed bottom-6 right-6 md:flex gap-6 z-50">
         <div>
-          <p className="text-sm font-medium mb-2">From:</p>
+          <p className="text-xs font-medium mb-[-6] p-1 pb-2  bg-black text-white rounded-t-lg w-1/4">From:</p>
           <Calendar
+          selected={firstDate}
             mode="single"
             onSelect={setFirstDate}
-            className="rounded-lg border shadow-sm"
+            className="rounded-b-lg rounded-tr-lg border shadow-sm"
           />
         </div>
   
         <div className="mt-2 md:mt-0">
-          <p className="text-sm font-medium mb-2">To:</p>
+          <p className="text-xs font-medium mb-[-6] p-1 pb-2  bg-black text-white rounded-t-lg w-1/4">To:</p>
           <Calendar
+          selected={secondDate}
             mode="single"
             onSelect={setSecondDate}
-            className="rounded-lg border shadow-sm"
+            className="rounded-b-lg rounded-tr-lg border shadow-sm"
+            disabled={(date)=> !!firstDate && date<firstDate}
           />
         </div>
       </div>

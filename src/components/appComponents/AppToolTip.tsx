@@ -8,7 +8,7 @@ import React from "react";
 const AppToolTip = ({children, tip}:{children:React.ReactNode, tip:string}) => {
     return (
         <Tooltip>
-            <TooltipTrigger>{children}</TooltipTrigger>
+            <TooltipTrigger asChild>{children}</TooltipTrigger>
             <TooltipContent>
                 <p>{tip}</p>
             </TooltipContent>
