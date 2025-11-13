@@ -11,17 +11,17 @@ const SellerSummary = () => {
             <main className="flex flex-col mt-5 gap-5">
                 <div className="flex gap-3 w-full flex-1">
                     <div className="  p-2 text-center flex-1 bg-primary rounded-xl  text-white">
-                        <h3 className="font-semi-bold text-sm">
+                        <h3 className="font-semi-bold text-xs">
                              Your customers
                         </h3>
                     </div>
                     <div className="  p-2 text-center flex-1 bg-primary rounded-xl  text-white">
-                        <h3 className="font-semi-bold text-sm">
+                        <h3 className="font-semi-bold text-xs">
                              Your Income
                         </h3>
                     </div>
                     <div className=" p-2 text-center flex-1 bg-primary rounded-xl text-white">
-                        <h3 className="font-semi-bold text-sm">
+                        <h3 className="font-semi-bold text-xs">
                              Products Sold
                         </h3>
                     </div>

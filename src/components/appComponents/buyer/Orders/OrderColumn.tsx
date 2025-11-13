@@ -1,7 +1,7 @@
 
-import AppToolTip from "@/components/appComponents/AppToolTip"
+// import AppToolTip from "@/components/appComponents/AppToolTip"
 import { ColumnDef } from "@tanstack/react-table"
-import { ArrowUpDown, Delete, Edit, Ellipsis, Eye, File, FileX2, MoreHorizontal } from "lucide-react"
+import { ArrowUpDown, Delete, Eye, File, FileX2, Handshake, MoreHorizontal } from "lucide-react"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -31,28 +31,7 @@ export type Order = {
     }
 
 export const orderColumns: ColumnDef<Order>[] = [
-  {
-    id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
+
   
   {
     accessorKey: "image",
@@ -97,40 +76,40 @@ export const orderColumns: ColumnDef<Order>[] = [
       return formatted
     }
   },
-  {
-    accessorKey:"status",
-    header:"Order Status",
-    filterFn: (row, columnId, filterValue: string[]) => {
-        if (!Array.isArray(filterValue)) return true
-        const value = row.getValue<string>(columnId)
-        return filterValue.includes(value)
-      },
-      cell:({row})=>{
-        const status = row.original.status
-        if(status==="pending"||status==="shipped"){
-            return <div> 
-            <p className=" font-semibold bg-unhighlight text-gray-500 text-[0.7em] rounded-xl flex gap-1 justify-center items-center">
-                <FileX2 size={8}/> Unfulfilled
-            </p>
-        </div>}
-        else if(status==="delivered"){
-            return <div> 
-            <p className=" font-semibold bg-success text-black text-[0.7em] rounded-xl flex gap-1 justify-center items-center">
-                <File size={8}/> Fulfilled
-            </p>
-        </div>
-        }
+//   {
+//     accessorKey:"status",
+//     header:"Order Status",
+//     filterFn: (row, columnId, filterValue: string[]) => {
+//         if (!Array.isArray(filterValue)) return true
+//         const value = row.getValue<string>(columnId)
+//         return filterValue.includes(value)
+//       },
+//       cell:({row})=>{
+//         const status = row.original.status
+//         if(status==="pending"||status==="shipped"){
+//             return <div> 
+//             <p className=" font-semibold bg-unhighlight text-gray-500 text-[0.7em] rounded-xl flex gap-1 justify-center items-center">
+//                 <FileX2 size={8}/> Unfulfilled
+//             </p>
+//         </div>}
+//         else if(status==="delivered"){
+//             return <div> 
+//             <p className=" font-semibold bg-success text-black text-[0.7em] rounded-xl flex gap-1 justify-center items-center">
+//                 <File size={8}/> Fulfilled
+//             </p>
+//         </div>
+//         }
 
-        else{
-            return<div> 
-            <p className=" font-semibold bg-unhighlight text-gray-500 text-[0.7em] rounded-xl flex gap-1 justify-center items-center">
-                {status}
-            </p>
-        </div>
-        }
-        }
+//         else{
+//             return<div> 
+//             <p className=" font-semibold bg-unhighlight text-gray-500 text-[0.7em] rounded-xl flex gap-1 justify-center items-center">
+//                 {status}
+//             </p>
+//         </div>
+//         }
+//         }
      
-  },
+//   },
   {
     accessorKey: "paymentStatus",
     header: "Payment Status",
@@ -211,7 +190,7 @@ export const orderColumns: ColumnDef<Order>[] = [
             <DropdownMenuSeparator />
             <DropdownMenuItem className="text-xs"><Eye className="text-secondary"/> View Order </DropdownMenuItem>
             {/* <DropdownMenuItem className="text-xs"><Edit className="text-secondary"/> Edit Product </DropdownMenuItem> */}
-            <DropdownMenuItem className="text-xs"><Delete className="text-secondary"/>Delete Order </DropdownMenuItem>
+            {order.paymentStatus==="escrowed"&&<DropdownMenuItem className="text-xs"><Handshake className="text-secondary"/> Confirm Receipt </DropdownMenuItem>}
           </DropdownMenuContent>
         </DropdownMenu>
       )

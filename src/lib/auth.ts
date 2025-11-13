@@ -8,8 +8,8 @@ import { authConfig } from "./auth.config";
 const login = async (credentials: any)=>{
     try{
         connectToDb();
-        const {name, password} = credentials;
-        const user= await User.findOne({name});
+        const {email, password} = credentials;
+        const user= await User.findOne({email});
         if(!user){
           throw new Error("Username is not registered");
         }
@@ -27,7 +27,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
   providers: [
     Credentials({     
         credentials: {
-            name:{},
+            email:{},
             password:{}
         },
         authorize: async (credentials:any) => {
@@ -49,7 +49,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
                               
             //include the admin property as part of the returned user which is used to set the token and then the session in the auth.config file
            
-            let returnedUser= await User.findOne({name: user.name});
+            let returnedUser= await User.findOne({email: user.email});
             user.isAdmin=returnedUser.isAdmin;
             return true;
         },

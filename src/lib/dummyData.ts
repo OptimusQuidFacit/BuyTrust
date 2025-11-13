@@ -1,3 +1,4 @@
+import PriceDetails from "@/components/seller/PriceDetails"
 import { timeStamp } from "console"
 const date= new Date()
 
@@ -133,8 +134,8 @@ export const Orders=[
         product:{name:"Samsung Tablet", price:"600000"},
         quantity:2,
         totalAmount:1200000,
-        status:"pending",
-        paymentStatus:"escrowed",
+        status:"delivered",
+        paymentStatus:"released",
         isConfirmed:false,
         timeStamp:new Date(2025,8,24)
     },
@@ -151,4 +152,30 @@ export const Orders=[
         timeStamp: new Date(2025,7,21)
     },
 
+]
+
+
+export const payments =[
+    {
+        transactionId:"3141562",
+        order:{
+            product:{
+                name:"A bag of beans",
+                price: 12000
+            }
+        },
+        status:"released",
+        amount:48000
+    },
+    {
+        transactionId:"546272",
+        order:{
+            product:{
+                name:"Bottle of Honey",
+                price: 4000
+            }
+        },
+        status:"escrowed",
+        amount:4000
+    }
 ]

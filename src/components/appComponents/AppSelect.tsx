@@ -6,15 +6,15 @@ import {
 import { ComponentProps } from "react";
 
 type props={
-    label:string,
-    options:{name:string, value:number}[],
+    label?:string,
+    options:{name:string, value:number|string}[],
     className?:string
     selectValue:number|string
   }
 const AppSelect = ({label, options, className, selectValue, ...rest}:props & ComponentProps<"select">) => {
     return (
         <NativeSelect value={selectValue} {...rest} className={className}>
-            <NativeSelectOption value="">{label}</NativeSelectOption>
+            {label&&<NativeSelectOption value="">{label}</NativeSelectOption>}
             {
                 options.map(option =>
 

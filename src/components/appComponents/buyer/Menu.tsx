@@ -1,14 +1,11 @@
 "use client"
 import Image from "next/image";
-import { FaChartPie } from "react-icons/fa6";
-import { FcAdvertising } from "react-icons/fc";
-import { CiDeliveryTruck } from "react-icons/ci";
-import { FaWallet } from "react-icons/fa";
+import { CiDeliveryTruck, CiSaveDown1 } from "react-icons/ci";
 import Link from "next/link";
 import { businessName } from "@/lib/data";
 import { usePathname } from "next/navigation";
-import Button from "../utility/Button";
-import { LogOut } from "lucide-react";
+// import Button from "../utility/Button";
+import { BiPurchaseTag } from "react-icons/bi";
 
 
 
@@ -25,11 +22,11 @@ const Menu = () => {
         //     return pathName.startsWith(link)?true:false;
         // }   
         //exception for home directory
-        if(link!=="/seller"){
+        if(link!=="/buyer"){
 
             return pathName.startsWith(link)?true:false;
         } 
-        return pathName===link?true:false;      
+        return pathName===link?true:false;    
         
 
 
@@ -38,41 +35,35 @@ const Menu = () => {
     console.log(pathName, isCurrentPage("/seller/ads"));
     const menuItems= [
         {
-        name:"Summary",
-        icon:<FaChartPie />,
-        link: "/seller"
-        },
-        {
-        name:"My Ads",
-        icon:<FcAdvertising />,
-        link: "/seller/ads"
-
-        },
-        {
-        name:"Pending Delivery",
+        name:"My Orders",
         icon:<CiDeliveryTruck />,
-        link: "/seller/orders"
+        link: "/buyer"
         },
         {
-        name:"Wallet",
-        icon:<FaWallet />,
-        link: "/seller/wallet"
+        name:"Saved Items",
+        icon:<CiSaveDown1 />,
+        link: "/buyer/saved"
 
+        },
+        {
+        name:"Purchases",
+        icon:<BiPurchaseTag/>,
+        link: "/buyer/purchase"
         },
 
         ]
     return (
-        <div className="w-max-[200px] h-full bg-lightgrey p-3 flex flex-col justify-between">
+        <div className="w-max-[200px] h-full rounded-l-xl p-3 flex flex-col justify-between items-center bg-gradient-to-r from-primary to-secondary">
             <header className="flex gap-2 items-center">
                 <div className="relative w-[20px] h-[20px] my-5">
                     <Image className="object-cover" fill src={'/icon.png'} alt="Logo for the business"/>
                 </div>
                 <h1 className="font-semibold">{businessName}</h1>
             </header>
-            <div>
+            <div className="p-2 rounded-xl bg-white w-full">
                 {
                     menuItems.map(item=>
-                      <Link key={item.link} className={`flex gap-3 text-sm my-2 hover:text-black hover:font-semibold ${isCurrentPage(item.link)?"text-black font-semibold":"text-unhighlight"}`} href={item.link}>
+                      <Link key={item.link} className={`flex gap-3 text-sm my-5 hover:text-black hover:font-semibold ${isCurrentPage(item.link)?"text-black font-semibold":"text-unhighlight"}`} href={item.link}>
                         {item.icon}
                         <p>
                             {item.name}

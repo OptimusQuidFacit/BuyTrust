@@ -112,7 +112,6 @@ const Onboarding = () => {
                         {showMessage&&<div className="mt-2">
                             <p className="text-warning">
                                 {state?.error}
-
                             </p>
                             <p className="text-success">
                                 {state?.message}

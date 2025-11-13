@@ -98,14 +98,14 @@ const OrderPage = () => {
             </h1>
             <main className="text-xs mt-2">
                 <div className="flex gap-2">
-                    <Button onClick={()=>toggleFilter("status", ["pending", "shipped"])} variant="link" className={`rounded-none flex gap-1 text-xs pb-1 hover:border-b-1 border-secondary ${filterCheck("status",undefined, true)&&"border-b-1"}`}>
+                    <Button onClick={()=>toggleFilter("status", undefined)} variant="link" className={`rounded-none flex gap-1 text-xs pb-1 hover:border-b-1 border-secondary ${filterCheck("status",undefined, true)&&"border-b-1"}`}>
                         <ScrollIcon size={12}/><p>Orders</p>
                     </Button>
                     <Button onClick={()=>toggleFilter("status", ["pending", "shipped"])} variant="link" className={`rounded-none flex gap-1 text-xs pb-1 hover:border-b-1 border-secondary ${filterCheck("status",["shipped", "pending"])&&"border-b-1"}`}>
                         <FileX2 size={12}/>
                         <p>Unfulfilled</p>
                     </Button>
-                    <Button onClick={()=>toggleFilter("paymentStatus", ["escrowed"])} variant="link" className={`rounded-none flex gap-1 text-xs pb-1 hover:border-b-1 border-secondary ${filterCheck("paymentStatus", ["escrowed"])&&"border-b-1"}`}>
+                    <Button onClick={()=>toggleFilter("paymentStatus", ["escrowed", "released"])} variant="link" className={`rounded-none flex gap-1 text-xs pb-1 hover:border-b-1 border-secondary ${filterCheck("paymentStatus", ["escrowed"])&&"border-b-1"}`}>
                         <CircleCheck size={12}/>
                         <p>Paid</p>
                     </Button>
